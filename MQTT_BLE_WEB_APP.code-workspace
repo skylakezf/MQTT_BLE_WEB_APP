@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../MQTT_WEB_APP/static"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "MQTT_BLE_WEB_APP"
+	}
+}

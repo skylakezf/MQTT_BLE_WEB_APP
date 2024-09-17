@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT蓝牙数据查看</title>
+    <link rel="stylesheet" href="script/css.css">
+    <script src="script/js.js" defer></script>
+</head>
+<body>
+
+<div class="root-wrapper">
+    <div class="header-wrapper" id="weather_show_area">
+        <div class="header-content-wrapper">
+            <div class="header-title">
+                <span id="airText">空气质量</span>
+                <span></span>
+                <span id="city">风向</span>
+            </div>
+            <div class="header-text">
+                <span id="airValue">空气质量值</span>
+                <div class="header-advice" id="weatheradvice">出行建议</div>
+            </div>
+            <div class="header-text">
+                <span id="weather">天气气温</span>
+                <div class="header-advice" id="weather_update_time">天气更新时间</div>
+            </div>
+        </div>
+        
+    </div>
+
+    <button id="connectBtn" style="color: #666; font-size: 14px; font-weight: 0px; background-color: aliceblue; padding: 20px; margin: 20px; border-radius: 10px; border: none;">选择蓝牙设备</button>
+    <div id="output"></div>
+    <div id="outputdata"></div>
+
+    <div class="body-wrapper">
+        <div class="data-wrapper">
+            <div style="height: 80px; background-color: aliceblue; border-radius: 10px; padding: 10px; text-align: center;">
+                <div style="color: #666; font-size: 14px;">数据更新时间</div>
+                <div id="time">未更新</div>
+                <div id="information"></div>
+            </div>
+        </div>
+
+        <div class="data-wrapper">
+            <div class="data">
+                <div class="data-left">
+                    <img src="/" alt="设备状态">
+                    <span class="data-title">设备状态</span>
+                </div>
+                <span id="state" class="data-value">状态</span>
+            </div>
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/battery.png" alt="设备电量">
+                    <span class="data-title">设备电量</span>
+                </div> 
+                <span id="power" class="data-value">电量 %</span>
+            </div>
+        </div>
+
+        <div class="data-wrapper">
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/camera.png" alt="摄像头">
+                    <span class="data-title">摄像头</span>
+                </div>
+                <span class="data-value">关闭</span>
+            </div>
+
+
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/alarm.png" alt="警报">
+                    <span class="data-title">警报</span>
+                </div>
+                <div class="data-switch">
+                    <!-- <input type="checkbox" id="alarmSwitch" checked onchange="onAlarm()"> -->
+                    <input type="checkbox" id="alarmSwitch" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="data-wrapper">
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/temperature.png" alt="温度">
+                    <span class="data-title">温度</span>
+                </div>
+                <span id="temperature" class="data-value">温度℃</span>
+            </div>
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/humidity.png" alt="湿度">
+                    <span class="data-title">湿度</span>
+                </div>
+                <span id="humidity" class="data-value">湿度%</span>
+            </div>
+        </div>
+
+        <div class="data-wrapper">
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/gas.png" alt="MQ5">
+                    <span class="data-title">MQ5</span>
+                </div>
+                <span id="MQ5" class="data-value">MQ5</span>
+            </div>
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/fire.png" alt="Fire">
+                    <span class="data-title">Fire</span>
+                </div>
+                <span id="Fire" class="data-value">Fire</span>
+            </div>
+        </div>
+
+        <div class="data-wrapper">
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/human.png" alt="human">
+                    <span class="data-title">human</span>
+                </div>
+                <span id="human" class="data-value">human</span>
+            </div>
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/irrupt.png" alt="闯入警报">
+                    <span class="data-title">闯入警报</span>
+                </div>
+                <div class="data-switch">
+                    <!-- <input type="checkbox" id="irrinutSwitch" checked onchange="onAlarm()"> -->
+                    <input type="checkbox" id="irruptSwitch" />
+                </div>
+            </div>
+            
+            
+        </div>
+
+        <br>
+        <div class="data-dev">
+            <div class="data-left">
+                <img src="/static/images/fan.png" alt="风扇">
+                <span class="data-title">风扇</span>
+            </div>
+            <div class="data-switch">
+                <!-- <input type="checkbox" id="fanSwitch" checked onchange="onFanChange()"> -->
+                <input type="checkbox" id="fanSwitch" />
+            </div>
+            <div class="data-left">
+                <img src="/static/images/pump.png" alt="水泵">
+                <span class="data-title">水泵</span>
+            </div>
+            <div class="data-switch">
+                <!-- <input type="checkbox" id="pumpSwitch" checked onchange="onPumpChange()"> -->
+                <input type="checkbox" id="pumpSwitch" />
+            </div>
+            <div class="data-left">
+                <img src="/static/images/window.png" alt="窗户">
+                <span class="data-title">窗户</span>
+            </div>
+            <div class="data-switch">
+                <!-- <input type="checkbox" id="windowSwitch" checked onchange="onWindowChange()"> -->
+                <input type="checkbox" id="windowSwitch" />
+            </div>
+        </div>
+
+    </div>
+    <a href="http://db.xinyi.hk.cn:3000">点击查看历史数据</a>
+</div>
+
+</body>
+</html>

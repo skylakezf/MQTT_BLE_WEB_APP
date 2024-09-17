@@ -1,0 +1,146 @@
+/* 基本布局和样式 */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* 根容器 */
+.root-wrapper {
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 头部 */
+.header-wrapper {
+    width: 100%;
+    height: 28.1vh; /* 500rpx 转换为 vh，基于 16:9 屏幕 */
+    position: relative;
+    color: #fff;
+    background: rgba(56, 55, 55, 0.514) no-repeat center center / cover;
+    background-blend-mode: multiply;
+}
+
+.header-content-wrapper {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    right: 5%;
+    text-align: center;
+}
+
+.header-title, .header-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1vh;
+}
+
+.header-text {
+    font-size: 2.8vh; /* 相对于视口高度 */
+    font-weight: 400;
+}
+
+.header-advice {
+    margin-top: 1vh;
+    font-size: 1.2vh;
+}
+
+/* 内容区 */
+.body-wrapper {
+    width: 95%;
+    padding: 2vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 数据块样式 */
+.data-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 2vh;
+}
+
+.data, .data-full, .data-dev {
+    background-color: #f0f0f0;
+    border-radius: 1vh;
+    transition: transform 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.data {
+    width: 22vw;
+    height: 10vh;
+}
+
+.data-full {
+    width: 47vw;
+    height: 7vh;
+}
+
+.data-dev {
+    width: 47vw;
+    height: 10vh;
+}
+
+.data:active, .data-dev:active {
+    transform: scale(0.95);
+}
+
+.data-left, .data-value, .data-switch, .ctrl-dev {
+    display: flex;
+    align-items: center;
+}
+
+.data-left img, .data-logo {
+    width: 3.6vh;
+    height: 3.6vh;
+    margin-right: 1vh;
+}
+
+.data-title {
+    font-size: 1.4vh;
+    color: #000;
+}
+
+.data-value {
+    font-size: 2.2vh;
+    color: #777;
+}
+
+.data-switch input {
+    transform: scale(1.2); /* 调整开关大小 */
+}
+
+.ctrl-dev {
+    justify-content: space-between;
+}
+
+.setCtrlText {
+    font-size: 1.2vh;
+}
+
+.ctrlInput {
+    width: 40%;
+    font-size: 1.2vh;
+}
+
+#information{
+    background-color: red;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+}

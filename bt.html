@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluetooth Device Selector</title>
+</head>
+<body>
+    <button id="connectBtn">Select Bluetooth Device</button>
+    <div id="output"></div>
+    <div id="outputdata"></div>
+
+    <script>
+       document.getElementById('connectBtn').addEventListener('click', async () => {
+    try {
+        const SERVICE_UUID = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
+        const CHARACTERISTIC_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26a8'; // 替换为你的特征 UUID
+
+        // 用于累积数据的缓冲区
+        let buffer = '';
+
+        // 弹出选择设备的对话框
+        const device = await navigator.bluetooth.requestDevice({
+            acceptAllDevices: true,
+            optionalServices: [SERVICE_UUID]
+        });
+
+        // 连接设备
+        const server = await device.gatt.connect();
+        console.log('Connected to', device.name);
+
+        // 获取服务
+        const service = await server.getPrimaryService(SERVICE_UUID);
+        const characteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
+
+        // 监听特征的 valuechanged 事件
+        await characteristic.startNotifications();
+        characteristic.addEventListener('characteristicvaluechanged', (event) => {
+            // 读取数据并累积
+            const value = new TextDecoder().decode(event.target.value);
+            buffer += value; // 将新数据添加到缓冲区
+            console.log('Received partial data:', value); // 输出每个接收的数据片段
+
+            // 检查缓冲区中是否包含一个完整的 JSON 数据包
+            if (buffer.includes('{') && buffer.includes('}')) {
+                const start = buffer.indexOf('{');
+                const end = buffer.indexOf('}', start) + 1;
+
+                // 提取完整的 JSON 数据包
+                if (start !== -1 && end !== -1 && end > start) {
+                    const jsonString = buffer.slice(start, end);
+
+                    try {
+                        // 尝试解析 JSON 数据
+                        const data = JSON.parse(jsonString);
+                        console.log('Received complete data:', data);
+                        // 在页面上输出接收到的数据
+                       
+                        document.getElementById('outputdata').innerText = JSON.stringify(data);
+
+                       
+
+                        // 清除缓冲区中已处理的数据
+                        buffer = buffer.slice(end);
+                    } catch (e) {
+                        console.error('Failed to parse JSON:', e);
+                    }
+                }
+            }
+
+            // 防止缓冲区过大，如果缓冲区超过设定大小，则清空它
+            const MSG_BUFFER_SIZE = 150;
+            if (buffer.length > MSG_BUFFER_SIZE) {
+                console.warn('Buffer overflow, clearing buffer');
+                buffer = ''; // 清空缓冲区
+            }
+        });
+
+        // 监听设备断开连接事件
+        device.addEventListener('gattserverdisconnected', () => {
+            console.log('Device disconnected');
+            document.getElementById('output').innerText = 'Device disconnected';
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+    </script>
+</body>
+</html>
