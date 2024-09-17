@@ -182,9 +182,7 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
                         // 尝试解析 JSON 数据
                         const data = JSON.parse(jsonString);
                         console.log('Received complete data:', data);
-                        
-                        // 在页面上输出接收到的数据
-                        document.getElementById('outputdata').innerText = JSON.stringify("接收的蓝牙数据"+data);
+                 
 
                         // 调用 handleData 函数
                         handleData(data);
