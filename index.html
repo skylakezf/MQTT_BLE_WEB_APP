@@ -59,7 +59,30 @@
             </div>
         </div>
 
+        <div class="data-wrapper">
+            
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/human.png" alt="human">
+                    <span class="data-title">human</span>
+                </div>
+                <span id="human" class="data-value">human</span>
+            </div>
+            
+            
 
+            <div class="data">
+                <div class="data-left">
+                    <img src="/static/images/alarm.png" alt="警报">
+                    <span class="data-title">警报</span>
+                </div>
+                <div class="data-switch">
+                    <!-- <input type="checkbox" id="alarmSwitch" checked onchange="onAlarm()"> -->
+                    <input type="checkbox" id="alarmSwitch" />
+                </div>
+            </div>
+
+        </div>
 
         <div class="data-wrapper">
             <div class="data">
@@ -95,33 +118,14 @@
             </div>
         </div>
 
-        <div class="data-wrapper">
-            <div class="data">
-                <div class="data-left">
-                    <img src="/static/images/human.png" alt="human">
-                    <span class="data-title">human</span>
-                </div>
-                <span id="human" class="data-value">human</span>
-            </div>
-            <div class="data">
-                <div class="data-left">
-                    <img src="/static/images/irrupt.png" alt="闯入警报">
-                    <span class="data-title">闯入警报</span>
-                </div>
-                <div class="data-switch">
-                    <!-- <input type="checkbox" id="irrinutSwitch" checked onchange="onAlarm()"> -->
-                    <input type="checkbox" id="irruptSwitch" />
-                </div>
-            </div>
-            
-            
-        </div>
+      
 
         <br>
       
 
     </div>
-    <a href="http://db.xinyi.hk.cn:3000">点击查看历史数据</a>
+    <a href="https://db.xinyi.hk.cn:3000">点击查看历史数据</a>
+    <a href="https://mqtt.xinyi.hk.cn">通过MQTT查看实时数据</a>
 </div>
 
 </body>

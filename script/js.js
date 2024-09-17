@@ -259,7 +259,5 @@ function handleData(data) {
 
         lastUpdateTime = Date.now();
         document.getElementById('state').innerText = "在线";
-    } catch (error) {
-        console.error('Error parsing MQTT data:', error);
-    }
+    } 
 }
