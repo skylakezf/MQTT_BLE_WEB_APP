@@ -1,7 +1,34 @@
 
-const host = "wss://e38fef59.ala.cn-hangzhou.emqxsl.cn:8084/mqtt";
-const subTopic = "iot/Homeiot/dev";
-const pubTopic = "iot/Homeiot/app";
+//天气APIkey
+const weatherAPIKey = '33bbda4cc4c04a7383fd9bbc31f3e40d';
+//const defaultLocation = "101280101"; // 广州市的默认位置
+
+
+console.log("                         _oo0oo_");
+console.log("                        o8888888o");
+console.log("                        88\". \"88");
+console.log("                        (| -_- |)");
+console.log("                        0\\  =  /0");
+console.log("                      ___/`---'\\___");
+console.log("                   .' \\\\|     |// '.");
+console.log("                   / \\\\|||  :  |||// \\");
+console.log("                  / _||||| -:- |||||- \\");
+console.log("                 |   | \\\\  - /// |   |");
+console.log("                 | \\_|  ''\\---/''  |_/ |");
+console.log("                 \\\\. -\\__  '-'  ___/-. /");
+console.log("               ___'..'  /--.--\\  `..'___");
+console.log("           .\"\" '<  `.___\\_<|>_/___.' >' \"\".");
+console.log("           | | :  `- \\`.;`\\ _ /`;.`/ - ` : | |");
+console.log("           \\  \\\\ `_.   \\_ __\\ /__ _/  .-` /  /");
+console.log("       =====`-.____`.___ \\_____/___.-`___.-'=====");
+console.log("                         `=---='");
+console.log("  ");
+console.log("       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+console.log("  ");
+console.log("             佛祖保佑       永不宕机     永无BUG");
+console.log(" /");
+
+
 
 function fetchWeatherData(longitude = '', latitude = '') {
     if (!longitude || !latitude) {
@@ -81,9 +108,36 @@ function fetchWeatherData(longitude = '', latitude = '') {
     });
 }
 
-//天气APIkey
-const weatherAPIKey = '33bbda4cc4c04a7383fd9bbc31f3e40d';
-//const defaultLocation = "101280101"; // 广州市的默认位置
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchWeatherData();
+
+    // 绑定开关的事件处理函数
+    const alarmSwitch = document.getElementById('alarmSwitch');
+    const irruptSwitch = document.getElementById('irruptSwitch');
+    const fanSwitch = document.getElementById('fanSwitch');
+    const pumpSwitch = document.getElementById('pumpSwitch');
+    const windowSwitch = document.getElementById('windowSwitch');
+
+    if (alarmSwitch) {
+        alarmSwitch.addEventListener('change', onAlarm);
+    }
+    if (irruptSwitch) {
+        irruptSwitch.addEventListener('change', onIrrupt);
+    }
+    if (fanSwitch) {
+        fanSwitch.addEventListener('change', onFanChange);
+    }
+    if (pumpSwitch) {
+        pumpSwitch.addEventListener('change', onPumpChange);
+    }
+    if (windowSwitch) {
+        windowSwitch.addEventListener('change', onWindowChange);
+    }
+});
+
+
+
 
 document.getElementById('connectBtn').addEventListener('click', async () => {
     try {
@@ -130,7 +184,7 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
                         console.log('Received complete data:', data);
                         
                         // 在页面上输出接收到的数据
-                        document.getElementById('outputdata').innerText = JSON.stringify(data);
+                        document.getElementById('outputdata').innerText = JSON.stringify("接收的蓝牙数据"+data);
 
                         // 调用 handleData 函数
                         handleData(data);
