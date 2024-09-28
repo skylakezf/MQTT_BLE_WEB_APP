@@ -182,7 +182,7 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
                         // 尝试解析 JSON 数据
                         const data = JSON.parse(jsonString);
                         console.log('Received complete data:', data);
-                 
+               
 
                         // 调用 handleData 函数
                         handleData(data);
@@ -257,5 +257,7 @@ function handleData(data) {
 
         lastUpdateTime = Date.now();
         document.getElementById('state').innerText = "在线";
-    } 
+    } catch (error) {
+        console.error('Error parsing MQTT data:', error);
+    }
 }
